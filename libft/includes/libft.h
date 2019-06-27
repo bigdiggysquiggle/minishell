@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 17:47:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/25 20:10:08 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:33:57 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ int					number_length(long long n);
 long long			ft_power(int n, int p);
 void				print_bin(unsigned long n, int size);
 char				*ft_strwht(char *s);
+char				**array_join(char **sentence, char *word);
 
 #endif

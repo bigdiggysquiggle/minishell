@@ -1,45 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_array_join.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/23 23:06:12 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/26 17:34:25 by dromansk         ###   ########.fr       */
+/*   Created: 2019/06/26 17:33:12 by dromansk          #+#    #+#             */
+/*   Updated: 2019/06/26 17:33:29 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		wordlen(char const *str, char d)
+char	**array_join(char **sentence, char *word)
 {
+	char	**old;
+	char	**new;
 	int		i;
 
+	old = sentence;
+	new = NULL;
 	i = 0;
-	while (str[i] && str[i] != d)
+	while (old[i])
 		i++;
-	return (i);
-}
-
-char			**ft_strsplit(char const *s, char c)
-{
-	char	**n;
-	int		len;
-
-	if (s == NULL || !(n = (char **)malloc(sizeof(char *))))
-		return (NULL);
-	*n = NULL;
-	while (*s)
+	if ((new = (char **)malloc(sizeof(char *) * (i + 2))))
 	{
-		if (*s && *s != c)
-		{
-			len = wordlen(s, c);
-			n = array_join(n, ft_strndup(s, (size_t)len));
-			s += len;
-		}
-		else
-			s++;
+		i = -1;
+		while (old[++i])
+			new[i] = old[i];
+		new[i++] = word;
+		new[i] = NULL;
 	}
-	return (n);
+	free(sentence);
+	return (new);
 }
