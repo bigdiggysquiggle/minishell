@@ -6,9 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/25 16:55:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:01:57 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_minishell.h"
+
+extern char	**environ;
 
 char	*read_cmd(void)
 {
@@ -64,7 +68,25 @@ t_com	*get_cmd(void)
 	return (split_cmds(com, cmds));
 }
 
+char	**clone_env(char **en)
+{
+	char	**env;
+	int		i;
+
+	i = 0;
+	while (en[i])
+		i++;
+	env = (char **)malloc(sizeof(char *) * ++i);
+	env[--i] = NULL;
+	while (--i >= 0)
+		env[i] = ft_strdup(en[i]);
+	return (env);
+}
+
 int		main(void)
 {
+	char	**env;
 
+	env = clone_env(environ);
+	return (0);
 }
