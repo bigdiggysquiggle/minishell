@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/04 23:06:39 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/04 23:42:12 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int		wordlen(char const *str, char *d)
 		i++;
 		while (str[i] && str[i] != '"')
 			i++;
-		return (i);
+		return (++i);
 	}
 	while (str[i])
 	{
 		j = 0;
-		while (d[j] != str[i])
+		while (d[j] && d[j] != str[i])
 			j++;
 		if (d[j])
 			return (i);
@@ -57,8 +57,7 @@ char			**cmd_split(char const *s, char *c)
 			n = array_join(n, ft_strndup(s, (size_t)len));
 			s += len;
 		}
-		else
-			s++;
+		s++;
 	}
 	return (n);
 }
