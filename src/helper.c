@@ -6,13 +6,35 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 03:09:57 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 03:54:42 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
 /*strip parentheseseses here unless escaped */
+
+char			*cmd_split_dupe(char const *s, size_t len)
+{
+	char 	*d;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	d = NULL;
+	if (s[i] == '"')
+	{
+		while (s[i] == '"')
+			i++;
+		while (s[i + j] && s[i + j] != '"')
+			j++;
+		d = ft_strsub(s, i, j);
+	}
+	else
+		d = ft_strndup(s, len);
+	return (d);
+}
 
 static int		wordlen(char const *str, char *d)
 {
@@ -56,7 +78,7 @@ char			**cmd_split(char const *s, char *c)
 		if (!c[i])
 		{
 			len = wordlen(s, c);
-			n = array_join(n, ft_strndup(s, (size_t)len));
+			n = array_join(n, cmd_split_dupe(s, (size_t)len));
 			s += len;
 		}
 		else

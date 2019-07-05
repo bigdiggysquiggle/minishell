@@ -10,5 +10,6 @@ char	**ft_exit(char **args, char **env);
 char	**ft_env(char **args, char **env);
 char	**ft_setenv(char **args, char **env);
 char	**ft_unsetenv(char **args, char **env);
+int		execute_nonbuiltin(char **args, char **env);
 
 #endif
