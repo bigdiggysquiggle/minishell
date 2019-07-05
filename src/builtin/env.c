@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 02:56:15 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 03:02:48 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	**ft_setenv(char **args, char **env)
 	int		i;
 
 	i = 0;
+	if (!args[1])
+		return (ft_env(args, env));
 	while (env[i] && check_env(env[i], args[1]))
 		i++;
 	if (env[i])
