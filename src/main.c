@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/06/26 21:01:57 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:43:04 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,20 @@
 
 extern char	**environ;
 
-char	*read_cmd(void)
+int		exec_cmds(char *cmd, char **env)
 {
-	char	*cmds
-	char	red[BUFF_SIZE + 1];
-	int		ret;
+	char	**cmds;
 
-	cmds = ft_strnew(0);
-	while ((ret = read(fd, red, BUFF_SIZE)) > 0)
+	cmds = ft_strsplit(cmd, ' ');//need to make cut all white space
+	if (ft_strequ(cmds[0], "env"))
 	{
-		red[ret] = '\0';
-		cmds = swap_n_free(ft_strjoin(cmds, red), &cmds);
+		int i = 0;
+		while (env[i])
+			printf("%s\n", env[i++]);
 	}
-	if (ret < 0)
-	{
-		free(cmds);
-		cmd_read_error(errno);
-	}
-	return (cmds);
-}
-
-t_com	*split_cmds(t_com *com, char *cmds)
-{
-	char	**coms1;
-	char	**coms2;
-	char	*strip;
-	int		i;
-
-	i = 0;
-	strip = ft_strtrim(cmds);
-	strip = swap_n_free(ft_strwht(strip), &strip);
-	coms1 = ft_strsplit(strip, ' ');
-	com->cmd = coms1[0];
-	while (coms[i])
-		i++;
-	coms2 = (char **)malloc(sizeof(char *) * i);
-	i = -1;
-	while (coms1[++i + 1])
-		coms2[i] = coms1[i + 1];
-	coms2[i] = NULL;
-	com->args = coms2;
-	free(coms1);
-	return (com);
-}
-
-t_com	*get_cmd(void)
-{
-	t_com	*com;
-	char	*cmds;
-
-	com = (t_com *)malloc(sizeof(t_com));
-	cmds = read_cmd();
-	return (split_cmds(com, cmds));
+	else
+		printf("received test cmd\n");
+	return (0);
 }
 
 char	**clone_env(char **en)
@@ -83,10 +45,40 @@ char	**clone_env(char **en)
 	return (env);
 }
 
+void	free_split(char **cmdsplit)
+{
+	int		i;
+
+	i = 0;
+	while (cmdsplit[i])
+		free(cmdsplit[i++]);
+	free(cmdsplit);
+}
+
+int		shell(char **env)
+{
+	char	*cmd;
+	char	**cmdsplit;
+	int		i;
+
+	while (1/*figure out way to know shell is alive*/)
+	{
+		ft_putstr("8==D~ ");
+		get_next_line(0, &cmd);
+		cmdsplit = ft_strsplit(cmd, ';');
+		i = 0;
+		while (cmdsplit[i])
+			exec_cmds(cmdsplit[i++], env);
+		free(cmd);
+		free_split(cmdsplit);
+	}
+	return (0);
+}
+
 int		main(void)
 {
 	char	**env;
 
 	env = clone_env(environ);
-	return (0);
+	return (shell(env));
 }
