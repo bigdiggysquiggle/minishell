@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 03:27:55 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 03:31:19 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,4 @@ int		execute_nonbuiltin(char **args, char **env)
 		i++;
 	path = ft_strsplit(env[i] + 5, ':');
 	/* use strjoin and access to test each path. -1 means it's not there */
+	/* access(joined, F_OK); */
