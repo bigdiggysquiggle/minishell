@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 04:09:02 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:59:26 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_builtin	g_builtin[] =
 	{"env", &ft_env},
 	{"setenv", &ft_setenv},
 	{"unsetenv", &ft_unsetenv},
+	{"cd", &ft_cd},
 	{NULL, NULL}
 };
 
@@ -50,7 +51,7 @@ char	**exec_cmds(char *cmd, char **env)
 	char	**cmds;
 	int		i;
 
-	cmds = cmd_split(cmd, " \t\n\r\a");
+	cmds = expand_dollar(cmd_split(cmd, " \t\n\r\a"), env);
 	i = 0;
 	while (g_builtin[i].name && !ft_strequ(g_builtin[i].name, cmds[0]))
 		i++;

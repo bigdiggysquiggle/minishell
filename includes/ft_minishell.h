@@ -4,12 +4,16 @@
 
 char	**cmd_split(char const *s, char *c);
 void	free_split(char **cmdsplit);
+char	**expand_dollar(char **args, char **env);
+char	*exp_from_env(char **arg, int i, char **env);
+char	*contract_path(char **paths);
 
 char	**ft_echo(char **args, char **env);
 char	**ft_exit(char **args, char **env);
 char	**ft_env(char **args, char **env);
 char	**ft_setenv(char **args, char **env);
 char	**ft_unsetenv(char **args, char **env);
+char	**ft_cd(char **args, char **env);
 int		execute_nonbuiltin(char **args, char **env);
 
 #endif
