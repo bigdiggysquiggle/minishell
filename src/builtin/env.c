@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 03:02:48 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 03:19:48 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,3 @@ char	**ft_env(char **args, char **env)
 			ft_printf("%s\n", env[i++]);
 	return (env);
 }
-
-/*int		execute_nonbuiltin(char *com, char **env)
-{
-	int		i;
-	char	**path;
-
-	i = 0;
-	while (!ft_strnstr(env[i], "PATH=", 5))
-		i++;
-	path = ft_strsplit(env[i] + 5, ':');
-	//either concatonate the command onto each string of path and find file that way
-	//or find a way to search that path for an executable 
-}*/
