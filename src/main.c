@@ -6,11 +6,15 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/04 23:46:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 00:13:53 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+
+/*You must deal correctly with the PATH and the environment (copy of system char
+**environ).
+You must implement a series of builtins: echo, cd, setenv, unsetenv, env, exit.*/
 
 extern char	**environ;
 
