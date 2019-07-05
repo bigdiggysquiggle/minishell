@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/04 20:43:04 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/04 23:16:12 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ int		exec_cmds(char *cmd, char **env)
 {
 	char	**cmds;
 
-	cmds = ft_strsplit(cmd, ' ');//need to make cut all white space
+	printf("good\n");
+	cmds = cmd_split(cmd, " \t\n\r\a");
+	int i = 0;
+	while (cmds[i])
+		printf("%s\n", cmds[i++]);
 	if (ft_strequ(cmds[0], "env"))
 	{
 		int i = 0;
