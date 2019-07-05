@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 03:22:17 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 03:27:55 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ int		execute_nonbuiltin(char **args, char **env)
 	while (!ft_strnstr(env[i], "PATH=", 5))
 		i++;
 	path = ft_strsplit(env[i] + 5, ':');
-	//either concatonate the command onto each string of path and find file that way
-	//or find a way to search that path for an executable
+	/* use strjoin and access to test each path. -1 means it's not there */
