@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 02:12:29 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 02:47:14 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_builtin	g_builtin[] =
 	{"exit", &ft_exit},
 	{"env", &ft_env},
 	{"setenv", &ft_setenv},
+	{"unsetenv", &ft_unsetenv},
 	{NULL, NULL}
 };
 

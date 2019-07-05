@@ -9,5 +9,6 @@ char	**ft_echo(char **args, char **env);
 char	**ft_exit(char **args, char **env);
 char	**ft_env(char **args, char **env);
 char	**ft_setenv(char **args, char **env);
+char	**ft_unsetenv(char **args, char **env);
 
 #endif
