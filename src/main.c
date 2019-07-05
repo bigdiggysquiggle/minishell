@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 01:12:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 02:12:29 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@ You must implement a series of builtins: echo, cd, setenv, unsetenv, env, exit.*
 
 extern char	**environ;
 
+typedef struct s_builtin	t_builtin;
+
+struct	s_builtin
+{
+	char	*name;
+	char	**(*builtin)(char **, char **);
+};
+
+t_builtin	g_builtin[] =
+{
+	{"echo", &ft_echo},
+	{"exit", &ft_exit},
+	{"env", &ft_env},
+	{"setenv", &ft_setenv},
+	{NULL, NULL}
+};
+
 void	free_split(char **cmdsplit)
 {
 	int		i;
@@ -30,21 +47,21 @@ void	free_split(char **cmdsplit)
 	free(cmdsplit);
 }
 
-int		exec_cmds(char *cmd, char **env)
+char	**exec_cmds(char *cmd, char **env)
 {
 	char	**cmds;
+	int		i;
 
 	cmds = cmd_split(cmd, " \t\n\r\a");
-	if (ft_strequ(cmds[0], "env"))
-	{
-		int i = 0;
-		while (env[i])
-			printf("%s\n", env[i++]);
-	}
+	i = 0;
+	while (g_builtin[i].name && !ft_strequ(g_builtin[i].name, cmds[0]))
+		i++;
+	if (g_builtin[i].name)
+		env = g_builtin[i].builtin(cmds, env);
 	else
-		printf("received test cmd\n");
+		ft_printf("received test cmd\n");
 	free_split(cmds);
-	return (0);
+	return (env);
 }
 
 char	**clone_env(char **en)
@@ -75,7 +92,7 @@ int		shell(char **env)
 		cmdsplit = ft_strsplit(cmd, ';');
 		i = 0;
 		while (cmdsplit[i])
-			exec_cmds(cmdsplit[i++], env);
+			env = exec_cmds(cmdsplit[i++], env);
 		free(cmd);
 		free_split(cmdsplit);
 	}

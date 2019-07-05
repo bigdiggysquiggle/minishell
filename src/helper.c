@@ -6,11 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/04 23:42:12 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 01:53:55 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+
+/*strip parentheseseses here unless escaped */
 
 static int		wordlen(char const *str, char *d)
 {

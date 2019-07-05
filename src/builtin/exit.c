@@ -6,8 +6,16 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 23:15:31 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/04 23:15:38 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 02:16:13 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+
+char	**ft_exit(char **args, char **env)
+{
+	free_split(args);
+	free_split(env);
+	exit(1);
+	return (env);
+}

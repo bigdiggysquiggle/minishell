@@ -6,23 +6,23 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/03 23:10:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 02:15:46 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-/* might need to clone environ so I can work with it within this terminal */
-/* did clone environ to work with within this terminal */
-/* path exists as part of environ so that's easy enough */
-/* might not need to clone environment */
+/* segfaults on env after set, doesn't seem to be updated env outside this shit */
+/* consider making all functions return env so updates stay consistent */
 
 char	**ft_env_set(char *new, char **env)
 {
 	int		i;
 
 	i = 0;
-	while (ft_strcmp(env[i], new))
+	/*n compare to find variable names already used*/
+	/*or stringsplit using '='*/
+	while (env[i] && ft_strcmp(env[i], new))
 		i++;
 	if (env[i])
 	{
@@ -30,11 +30,28 @@ char	**ft_env_set(char *new, char **env)
 		env[i] = new;
 	}
 	else
-		array_join(env, new);
+		env = array_join(env, new);
 	return (env);
 }
 
-int		execute_com(char *com, char **env)
+char	**ft_setenv(char **args, char **env)
+{
+	env = ft_env_set(ft_strdup(args[1]), env);
+	return (env);
+}
+
+char	**ft_env(char **args, char **env)
+{
+	int		i;
+
+	i = 0;
+	if (args && env)
+		while (env[i])
+			ft_printf("%s\n", env[i++]);
+	return (env);
+}
+
+/*int		execute_nonbuiltin(char *com, char **env)
 {
 	int		i;
 	char	**path;
@@ -45,4 +62,4 @@ int		execute_com(char *com, char **env)
 	path = ft_strsplit(env[i] + 5, ':');
 	//either concatonate the command onto each string of path and find file that way
 	//or find a way to search that path for an executable 
-}
+}*/
