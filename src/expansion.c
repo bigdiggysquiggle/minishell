@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 16:43:06 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:48:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 /* $0 is name of shell or script */
 
-char	*exp_from_args(char **args, int i, char **env)
+/* figure out how to handle non capital letter variables */
+
+char	*exp_from_args(char **args, int i)
 {
 	int		j;
 
@@ -38,24 +40,6 @@ char	*exp_from_env(char **arg, int i, char **env)
 	return (ft_strdup(""));
 }
 
-char	*contract_path(char **paths)
-{
-	char	*path;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	path = ft_strdup(paths[0]);
-	while (paths[++i])
-	{
-		tmp = ft_strjoin(path, "/");
-		free(path);
-		path = ft_strjoin(tmp, paths[i]);
-		free(tmp);
-	}
-	return (path);
-}
-
 char	*exp_path(char **args, int i, char **env)
 {
 	char	**exp;
@@ -66,7 +50,35 @@ char	*exp_path(char **args, int i, char **env)
 		free(exp[0]);
 		exp[0] = ft_strdup("$HOME");
 	}
-	return (contract_path(expand_dollar(exp, env)));
+	return (contract_path(expand_dollar(exp, env), "/"));
+}
+
+char	*exp_dollars(char *arg, char **env)
+{
+	char	**exp;
+	int		i;
+	char	*tmp;
+
+	exp = (char **)malloc(sizeof(char *));
+	exp[0] = NULL;
+	while (*arg)
+	{
+		i = 0;
+		while (arg[i] && arg[i] != '$')
+			i++;
+		tmp = ft_strndup(arg, i);
+		exp = array_join(exp, tmp);
+		arg += i;
+		i = 0;
+		while (arg[i] && ('$' == arg[i] || ('A' <= arg[i] && arg[i] <= 'Z')))
+			i++;
+		tmp = ft_strndup(arg, i);
+		exp = array_join(exp, exp_from_env(&tmp, 0, env));
+		arg += i;
+	}
+	tmp = contract_path(exp, "");
+	free_split(exp);
+	return (tmp);
 }
 
 /* figure out better $ expansion */
@@ -79,17 +91,17 @@ char	**expand_dollar(char **args, char **env)
 	i = -1;
 	while (args[++i])
 	{
-		if (args[i][0] == '$')
+		if (args[i][0] == '~')
+			args[i] = exp_path(args, i, env);
+		else
 		{
-			t = exp_from_env(args, i, env);
-			if (t)
+			if (ft_strchr(args[i], '$'))
 			{
+				t = exp_dollars(args[i], env);
 				free(args[i]);
 				args[i] = t;
 			}
 		}
-		if (args[i][0] == '~')
-			args[i] = exp_path(args, i, env);
 	}
 	return (args);
 }

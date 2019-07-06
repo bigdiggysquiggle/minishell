@@ -6,13 +6,14 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 17:21:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:53:39 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
 /* writing to standard input does print to the terminal */
+/* use gnl to get missing quotes */
 extern char	**environ;
 
 typedef struct s_builtin	t_builtin;

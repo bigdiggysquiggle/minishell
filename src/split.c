@@ -6,13 +6,31 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 14:14:32 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:22:48 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
 /*strip parentheseseses here unless escaped */
+
+char	*contract_path(char **paths, char *d)
+{
+	char	*path;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	path = ft_strdup(paths[0]);
+	while (paths[++i])
+	{
+		tmp = ft_strjoin(path, d);
+		free(path);
+		path = ft_strjoin(tmp, paths[i]);
+		free(tmp);
+	}
+	return (path);
+}
 
 char			*cmd_split_dupe(char const *s, size_t len)
 {

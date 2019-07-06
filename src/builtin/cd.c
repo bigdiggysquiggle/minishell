@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 17:58:11 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:28:43 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,19 @@ char	**cd_swap(char **args, char **env)
 	{
 		free(exp[i]);
 		exp[i] = ft_strdup(args[2]);
-		path = contract_path(exp);
+		path = contract_path(exp, "/");
 		path = swap_n_free(ft_strjoin("/", path), &path);
 		env = update_pwd(env, path);
+		ft_printf("%s\n", path);
 		free(path);
 	}
 	free_split(exp);
 	return (env);
+}
+
+char	*get_home(char *home, char **env)
+{
+	return (exp_from_env(&home, 0, env));
 }
 
 char	**ft_cd(char **args, char **env)
@@ -95,14 +101,24 @@ char	**ft_cd(char **args, char **env)
 	char	**exp;
 	char	*path;
 
-	if (args[2])
+	exp = NULL;
+	if (args[1] && args[2])
 		return (cd_swap(args, env));
 	else
 	{
-		exp = ft_strsplit(args[1], '/');
-		exp = expand_dollar(exp, env);
-		path = contract_path(exp);
-		free_split(exp);
+		if (args[1])
+			exp = ft_strsplit(args[1], '/');
+		if (!exp || !*exp)
+		{
+			path = args[1] ? ft_strdup(args[1]) : get_home("$HOME", env);
+			free(exp);
+		}
+		else
+		{
+			exp = expand_dollar(exp, env);
+			path = contract_path(exp, "/");
+			free_split(exp);
+		}
 		env = update_pwd(env, path);
 	}
 	return (env);

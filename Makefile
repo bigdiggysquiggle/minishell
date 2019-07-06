@@ -6,13 +6,13 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/06/25 16:08:16 by dromansk         ###   ########.fr        #
+#    Updated: 2019/07/05 19:25:49 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = ./src/*.c
+SRCS = ./src/*.c ./src/builtin/*.c
 
 I = -I ./includes -I ./libft/includes
 
