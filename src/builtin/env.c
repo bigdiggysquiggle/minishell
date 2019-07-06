@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 16:53:50 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 17:02:21 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ char	**ft_unsetenv(char **args, char **env)
 	}
 	return (env);
 }
-
-/* takes a shitload of flags */
 
 char	**ft_env(char **args, char **env)
 {
