@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 19:48:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 20:52:07 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /* $0 is name of shell or script */
 
 /* figure out how to handle non capital letter variables */
+/* is fucking retarded if it has a character after the variable */
 
 char	*exp_from_args(char **args, int i)
 {
@@ -67,13 +68,15 @@ char	*exp_dollars(char *arg, char **env)
 		while (arg[i] && arg[i] != '$')
 			i++;
 		tmp = ft_strndup(arg, i);
-		exp = array_join(exp, tmp);
+		if (ft_strlen(tmp))
+			exp = array_join(exp, tmp);
 		arg += i;
 		i = 0;
 		while (arg[i] && ('$' == arg[i] || ('A' <= arg[i] && arg[i] <= 'Z')))
 			i++;
 		tmp = ft_strndup(arg, i);
-		exp = array_join(exp, exp_from_env(&tmp, 0, env));
+		if (ft_strlen(tmp))
+			exp = array_join(exp, exp_from_env(&tmp, 0, env));
 		arg += i;
 	}
 	tmp = contract_path(exp, "");

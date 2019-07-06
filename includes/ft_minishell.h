@@ -7,6 +7,7 @@ void	free_split(char **cmdsplit);
 char	**expand_dollar(char **args, char **env);
 char	*exp_from_env(char **arg, int i, char **env);
 char	*contract_path(char **paths, char *d);
+int		count_quotes(char *st);
 
 char	**ft_echo(char **args, char **env);
 char	**ft_exit(char **args, char **env);

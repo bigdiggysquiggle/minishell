@@ -6,13 +6,24 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 19:22:48 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 21:23:57 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-/*strip parentheseseses here unless escaped */
+/* quote getting is hateful */
+
+char	*get_quotes(char *st)
+{
+	char	*n;
+
+	n = NULL;
+	ft_printf("dquote> ");
+	get_next_line(0, &n);
+	st = swap_n_free(ft_strjoin(st, n), &st);
+	return (st);
+}
 
 char	*contract_path(char **paths, char *d)
 {
@@ -32,47 +43,54 @@ char	*contract_path(char **paths, char *d)
 	return (path);
 }
 
-char			*cmd_split_dupe(char const *s, size_t len)
+char		*cmd_split_dupe(char const *s, size_t len)
 {
 	char 	*d;
+	char	c;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
 	d = NULL;
-	if (s[i] == '"')
+	s = ft_strdup(s);
+	if (s[i] == '\"' | s[i] == '\'')
 	{
-		while (s[i] == '"')
+		if (!count_quotes((char *)s))
+			s = get_quotes((char *)s);
+		c = s[i];
+		while (s[i] == c)
 			i++;
-		while (s[i + j] && s[i + j] != '"')
+		while (s[i + j] && s[i + j] != c)
 			j++;
 		d = ft_strsub(s, i, j);
 	}
 	else
 		d = ft_strndup(s, len);
+	free((char *)s);
 	return (d);
 }
 
-static int		wordlen(char const *str, char *d)
+static int		wordlen(char const *str, char *de)
 {
 	int		i;
 	int		j;
+	char	d;
 
 	i = 0;
-	if (str[i] == '"')
+	if (str[i] == '\"' | str[i] == '\'')
 	{
-		i++;
-		while (str[i] && str[i] != '"')
+		d = str[i++];
+		while (str[i] && str[i] != d)
 			i++;
 		return (++i);
 	}
 	while (str[i])
 	{
 		j = 0;
-		while (d[j] && d[j] != str[i])
+		while (de[j] && de[j] != str[i])
 			j++;
-		if (d[j])
+		if (de[j])
 			return (i);
 		i++;
 	}
