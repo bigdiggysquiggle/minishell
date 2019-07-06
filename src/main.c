@@ -6,15 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 15:59:26 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 17:21:24 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-/*You must implement a series of builtins: echo, cd, setenv, unsetenv, env, exit.*/
-/* $PATH and other such environment variables should be easy to implement */
-
+/* writing to standard input does print to the terminal */
 extern char	**environ;
 
 typedef struct s_builtin	t_builtin;

@@ -6,12 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 16:16:28 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 17:58:11 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 #include "sys/param.h"
+#include "sys/stat.h"
 
 char	**update_oldpwd(char **env)
 {
@@ -34,13 +35,20 @@ char	**update_oldpwd(char **env)
 
 char	**update_pwd(char **env, char *path)
 {
-	char	**r;
-	char	buf[MAXPATHLEN + 1];
+	char		**r;
+	char		buf[MAXPATHLEN + 1];
+	struct stat	d;
 
 	if (chdir(path) < 0)
 	{
+		lstat(path, &d);
 		if (!access(path, F_OK))
-			ft_printf("cd: permission denied: %s\n", path);
+		{
+			if (!S_ISDIR(d.st_mode))
+				ft_printf("cd: not a directory: %s\n", path);
+			else
+				ft_printf("cd: permission denied: %s\n", path);
+		}
 		else
 			ft_printf("cd: no such file or directory: %s\n", path);
 		return (env);
