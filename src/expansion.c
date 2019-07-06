@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 15:57:01 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:43:06 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*exp_path(char **args, int i, char **env)
 	}
 	return (contract_path(expand_dollar(exp, env)));
 }
+
+/* figure out better $ expansion */
 
 char	**expand_dollar(char **args, char **env)
 {

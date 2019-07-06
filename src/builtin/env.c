@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 03:19:48 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:53:50 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int		check_env(char *env, char *var)
 	free_split(s);
 	return (ret);
 }
-
-/*this lists when no input*/
 
 char	**ft_setenv(char **args, char **env)
 {
