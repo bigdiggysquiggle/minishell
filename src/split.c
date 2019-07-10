@@ -6,13 +6,14 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 21:23:57 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:26:40 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-/* quote getting is hateful */
+/* quote getting is hateful. might be angry about s getting conditionally
+ * clone, might be hateful about how d is getting handled */
 
 char	*get_quotes(char *st)
 {
@@ -57,13 +58,13 @@ char		*cmd_split_dupe(char const *s, size_t len)
 	if (s[i] == '\"' | s[i] == '\'')
 	{
 		if (!count_quotes((char *)s))
-			s = get_quotes((char *)s);
+			d = get_quotes((char *)s);
 		c = s[i];
 		while (s[i] == c)
 			i++;
 		while (s[i + j] && s[i + j] != c)
 			j++;
-		d = ft_strsub(s, i, j);
+		d = d ? swap_n_free(ft_strsub(d, i, j), &d) : ft_strsub(s, i, j);
 	}
 	else
 		d = ft_strndup(s, len);

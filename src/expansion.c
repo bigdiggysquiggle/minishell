@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 20:52:07 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/09 18:59:53 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,14 @@
 
 /* $0 is name of shell or script */
 
-/* figure out how to handle non capital letter variables */
-/* is fucking retarded if it has a character after the variable */
-
-char	*exp_from_args(char **args, int i)
+/*char	*exp_from_args(char **args, int i)
 {
 	int		j;
 
-	if ('0' <= args[i][1] && args[i][1] <= '9')
-	{
-		j = ft_atoi(args[i] + 1);
-		return (ft_strdup(args[j]));
-	}
-	return (NULL);
-}
+	j = ft_atoi(args[i] + 1);
+	free(args[i]);
+	return (ft_strdup(args[j]));
+}*/
 
 char	*exp_from_env(char **arg, int i, char **env)
 {
@@ -72,11 +66,18 @@ char	*exp_dollars(char *arg, char **env)
 			exp = array_join(exp, tmp);
 		arg += i;
 		i = 0;
-		while (arg[i] && ('$' == arg[i] || ('A' <= arg[i] && arg[i] <= 'Z')))
+		if (arg[i] == '$')
+		{
+			printf("expanding\n");
 			i++;
+			while (arg[i] && ('_' == arg[i] ||
+					ft_isupper(arg[i]) || ft_isdigit(arg[i])))
+				i++;
+		}
 		tmp = ft_strndup(arg, i);
 		if (ft_strlen(tmp))
-			exp = array_join(exp, exp_from_env(&tmp, 0, env));
+			exp = array_join(exp, ft_strequ(tmp, "$0") ?
+					ft_strdup("-minishell") : exp_from_env(&tmp, 0, env));
 		arg += i;
 	}
 	tmp = contract_path(exp, "");
@@ -84,7 +85,7 @@ char	*exp_dollars(char *arg, char **env)
 	return (tmp);
 }
 
-/* figure out better $ expansion */
+	char	c;
 
 char	**expand_dollar(char **args, char **env)
 {
@@ -96,14 +97,11 @@ char	**expand_dollar(char **args, char **env)
 	{
 		if (args[i][0] == '~')
 			args[i] = exp_path(args, i, env);
-		else
+		if (ft_strchr(args[i], '$'))
 		{
-			if (ft_strchr(args[i], '$'))
-			{
-				t = exp_dollars(args[i], env);
-				free(args[i]);
-				args[i] = t;
-			}
+			t = exp_dollars(args[i], env);
+			free(args[i]);
+			args[i] = t;
 		}
 	}
 	return (args);

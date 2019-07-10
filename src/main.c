@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 19:53:39 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/09 18:30:40 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ char	**clone_env(char **en)
 	while (en[i])
 		i++;
 	env = (char **)malloc(sizeof(char *) * ++i);
+	if (!env)
+	{
+		ft_printf("failed to set up environment\n");
+		exit(1);
+	}
 	env[--i] = NULL;
 	while (--i >= 0)
 		env[i] = ft_strdup(en[i]);

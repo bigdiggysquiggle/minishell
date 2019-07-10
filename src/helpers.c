@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:08:43 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 21:14:41 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/09 19:00:05 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,13 @@ int		count_quotes(char *st)
 	}
 	return ((d % 2 || (!d && s % 2)) ? 0 : 1);
 }
+
+/*int		is_arg_dollar(char *s)
+{
+	int		i;
+
+	i = 0;
+	while (s[i] && ft_isdigit(s[i]))
+		i++;
+	return (s[i] ? 0 : 1);
+}*/
