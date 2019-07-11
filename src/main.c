@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/09 18:30:40 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:47:55 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char	**exec_cmds(char *cmd, char **env)
 	char	**cmds;
 	int		i;
 
+	while (!count_quotes(cmd))
+		cmd = get_quotes(cmd);
 	cmds = expand_dollar(cmd_split(cmd, " \t\n\r\a"), env);
 	i = 0;
 	while (g_builtin[i].name && !ft_strequ(g_builtin[i].name, cmds[0]))
