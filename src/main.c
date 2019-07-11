@@ -6,14 +6,15 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/10 17:50:57 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 19:55:25 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
 /* writing to standard input does print to the terminal */
-/* use gnl to get missing quotes */
+/* apparently I broke it somehow */
+/* echo 'test; echo test */
 extern char	**environ;
 
 typedef struct s_builtin	t_builtin;
@@ -48,10 +49,11 @@ void	free_split(char **cmdsplit)
 char	**exec_cmds(char *cmd, char **env)
 {
 	char	**cmds;
-	char	*tmp;
 	int		i;
 
-	cmds = expand_dollar(cmd_split(cmd, " \t\n\r\a"), env);
+	cmds = cmd_split(cmd, " \t\n\r\a");
+	cmds = strip_quotes(cmds);
+	cmds = expand_dollar(cmds, env);
 	i = 0;
 	while (g_builtin[i].name && !ft_strequ(g_builtin[i].name, cmds[0]))
 		i++;
@@ -93,7 +95,9 @@ int		shell(char **env)
 	{
 		ft_putstr("8==D~ ");
 		get_next_line(0, &cmd);
-		cmdsplit = ft_strsplit(cmd, ';');//custom split that skips things in quotes
+		while (!count_quotes(cmd))
+			cmd = get_quotes(cmd);
+		cmdsplit = cmd_split(cmd, ";"); //needs to preserve quotes here
 		i = 0;
 		while (cmdsplit[i])
 			env = exec_cmds(cmdsplit[i++], env);

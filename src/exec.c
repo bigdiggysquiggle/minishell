@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/10 17:24:17 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 19:36:40 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*make_path(char *cmd, char *path)
 	free(d);
 	return (s);
 }
-
+/* logic can be redone, also needs to work on local files */
 int		execute_nonbuiltin(char **args, char **env)
 {
 	int		i;
@@ -44,20 +44,31 @@ int		execute_nonbuiltin(char **args, char **env)
 	char	*cmd;
 
 	i = 0;
-	while (!ft_strnstr(env[i], "PATH=", 5))
-		i++;
-	path = ft_strsplit(env[i] + 5, ':');
-	i = 0;
-	cmd = make_path(args[0], path[i++]);
-	while (path[i] && access(cmd, F_OK) < 0)
+	if (args[0][0] != '.')
 	{
-		free(cmd);
+		while (!ft_strnstr(env[i], "PATH=", 5))
+			i++;
+		path = ft_strsplit(env[i] + 5, ':');
+		i = 0;
 		cmd = make_path(args[0], path[i++]);
+		while (path[i] && access(cmd, F_OK) < 0)
+		{
+			free(cmd);
+			cmd = make_path(args[0], path[i++]);
+		}
+		if (path[i])
+			execute(cmd, args, env);
+		else
+			ft_printf("%s: command not found\n", args[0]);
 	}
-	if (path[i])
-		execute(cmd, args, env);
 	else
-		ft_printf("%s: command not found\n", args[0]);
+	{
+		cmd = ft_strdup(args[0]);
+		if (!access(cmd, F_OK))
+			ft_printf("-minishell: no such file or directory: %s\n", cmd);
+		else
+			execute(cmd, args, env);
+	}
 	return (0);
 }
 	/* use strjoin and access to test each path. -1 means it's not there */

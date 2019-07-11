@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/10 17:32:25 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 19:54:52 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,6 @@ char	*contract_path(char **paths, char *d)
 	return (path);
 }
 
-char		*cmd_split_dupe(char const *s, size_t len)
-{
-	char 	*d;
-	char	c;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	d = NULL;
-	if (s[i] == '\"' || s[i] == '\'')
-	{
-		c = s[i];
-		while (s[i] == c)
-			i++;
-		while (s[i + j] && s[i + j] != c)
-			j++;
-		d = ft_strsub(s, i, j);
-	}
-	else
-		d = ft_strndup(s, len);
-	return (d);
-}
-
 static int		wordlen(char const *str, char *de)
 {
 	int		i;
@@ -64,20 +40,19 @@ static int		wordlen(char const *str, char *de)
 	char	d;
 
 	i = 0;
-	if (str[i] == '\"' || str[i] == '\'')
-	{
-		d = str[i++];
-		while (str[i] && str[i] != d)
-			i++;
-		return (str[i] ? i + 1 : i);
-	}
 	while (str[i])
 	{
 		j = 0;
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			d = str[i++];
+			while (str[i] && str[i] != d)
+				i++;
+		}
 		while (de[j] && de[j] != str[i])
 			j++;
 		if (de[j])
-			return (i);
+			break ;
 		i++;
 	}
 	return (i);
@@ -100,11 +75,29 @@ char			**cmd_split(char const *s, char *c)
 		if (!c[i])
 		{
 			len = wordlen(s, c);
-			n = array_join(n, cmd_split_dupe(s, (size_t)len));
+			n = array_join(n, ft_strndup(s, (size_t)len));
 			s += len;
 		}
 		else
 			s++;
 	}
 	return (n);
+}
+
+char		**strip_quotes(char **args)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (args[++i])
+	{
+		if (args[i][0] == '\'' || args[i][0] == '\"')
+			{
+				tmp = ft_strndup(args[i] + 1, ft_strlen(args[i] - 2));
+				free(args[i]);
+				args[i] = tmp;
+			}
+	}
+	return (args);
 }

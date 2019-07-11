@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:08:43 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/10 18:00:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 18:57:37 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ char	*get_quotes(char *st)
 	n = NULL;
 	ft_printf("dquote> ");
 	get_next_line(0, &n);
-	n = swap_n_free(ft_strjoin(st, n), &n);
-	return (n);
+	st = swap_n_free(ft_strjoin(st, n), &st);
+	free(n);
+	return (st);
 }
 
 int		find_end_quote(char *s, char c)
