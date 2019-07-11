@@ -48,10 +48,9 @@ void	free_split(char **cmdsplit)
 char	**exec_cmds(char *cmd, char **env)
 {
 	char	**cmds;
+	char	*tmp;
 	int		i;
 
-	while (!count_quotes(cmd))
-		cmd = swap_n_free(get_quotes(cmd), &cmd);
 	cmds = expand_dollar(cmd_split(cmd, " \t\n\r\a"), env);
 	i = 0;
 	while (g_builtin[i].name && !ft_strequ(g_builtin[i].name, cmds[0]))
@@ -94,7 +93,7 @@ int		shell(char **env)
 	{
 		ft_putstr("8==D~ ");
 		get_next_line(0, &cmd);
-		cmdsplit = ft_strsplit(cmd, ';');
+		cmdsplit = ft_strsplit(cmd, ';');//custom split that skips things in quotes
 		i = 0;
 		while (cmdsplit[i])
 			env = exec_cmds(cmdsplit[i++], env);
