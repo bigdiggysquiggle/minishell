@@ -6,29 +6,46 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:08:43 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/09 19:00:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:33:20 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int		count_quotes(char *st)
+char	*get_quotes(char *st)
 {
-	int		s;
-	int		d;
+	char	*n;
+
+	n = NULL;
+	ft_printf("dquote> ");
+	get_next_line(0, &n);
+	st = swap_n_free(ft_strjoin(st, n), &st);
+	return (st);
+}
+
+int		find_end_quote(char *s, char c)
+{
 	int		i;
 
-	s = 0;
-	d = 0;
+	i = 1;
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
+}
+
+int		count_quotes(char *st)
+{
+	int		i;
+
 	i = -1;
 	while (st[++i])
 	{
-		if (st[i] == '\'')
-			s++;
-		if (st[i] == '\"')
-			d++;
+		if (st[i] == '\'' || st[i] == '\"')
+			i += find_end_quote(st + i, st[i]);
+		if (!st[i])
+			return (0);
 	}
-	return ((d % 2 || (!d && s % 2)) ? 0 : 1);
+	return (1);
 }
 
 /*int		is_arg_dollar(char *s)

@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/09 19:26:40 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:32:25 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 
 /* quote getting is hateful. might be angry about s getting conditionally
  * clone, might be hateful about how d is getting handled */
-
-char	*get_quotes(char *st)
-{
-	char	*n;
-
-	n = NULL;
-	ft_printf("dquote> ");
-	get_next_line(0, &n);
-	st = swap_n_free(ft_strjoin(st, n), &st);
-	return (st);
-}
 
 char	*contract_path(char **paths, char *d)
 {

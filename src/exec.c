@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 19:31:05 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:24:17 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	execute(char *cmd, char **args, char **env)
 	if (pid == 0 && execve(cmd, args, env) == -1)
 		ft_printf("permission denied\n"); //might need program name on there
 	else if (pid < 0)
-		//ft_error(1, name, "failed to fork");
-		ft_printf("failed to fork\n");
+		ft_printf("%s: failed to fork\n", args[0]);
 	else
 		wait(&pid);
 }
@@ -32,7 +31,7 @@ char	*make_path(char *cmd, char *path)
 	char	*s;
 	char	*d;
 
-	d = ft_strjoin(path, "/");//make sure to check for ending '/'
+	d = ft_strjoin(path, "/");
 	s = ft_strjoin(d, cmd);
 	free(d);
 	return (s);
