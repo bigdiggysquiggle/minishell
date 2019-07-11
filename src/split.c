@@ -69,7 +69,7 @@ static int		wordlen(char const *str, char *de)
 		d = str[i++];
 		while (str[i] && str[i] != d)
 			i++;
-		return (++i);
+		return (str[i] ? i + 1 : i);
 	}
 	while (str[i])
 	{

@@ -44,7 +44,7 @@ test: clean
 	gcc -Wall -Werror -Wextra -c $(I) $(SRCS)
 	gcc -Wall -Werror -Wextra -o $(NAME) $(O) $(I) $(L)
 	make clean
-	echo "one more thing" | ./ft_ssl md5 -r -p -s "foo" file -s "bar"
+	./$(NAME)
 
 comptest: fclean all
 	make -c libft reclean
