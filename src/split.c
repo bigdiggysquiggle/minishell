@@ -54,21 +54,17 @@ char		*cmd_split_dupe(char const *s, size_t len)
 	i = 0;
 	j = 0;
 	d = NULL;
-	s = ft_strdup(s);
-	if (s[i] == '\"' | s[i] == '\'')
+	if (s[i] == '\"' || s[i] == '\'')
 	{
-		if (!count_quotes((char *)s))
-			d = get_quotes((char *)s);
 		c = s[i];
 		while (s[i] == c)
 			i++;
 		while (s[i + j] && s[i + j] != c)
 			j++;
-		d = d ? swap_n_free(ft_strsub(d, i, j), &d) : ft_strsub(s, i, j);
+		d = ft_strsub(s, i, j);
 	}
 	else
 		d = ft_strndup(s, len);
-	free((char *)s);
 	return (d);
 }
 
@@ -79,7 +75,7 @@ static int		wordlen(char const *str, char *de)
 	char	d;
 
 	i = 0;
-	if (str[i] == '\"' | str[i] == '\'')
+	if (str[i] == '\"' || str[i] == '\'')
 	{
 		d = str[i++];
 		while (str[i] && str[i] != d)

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+#include "sys/wait.h"
 
 void	execute(char *cmd, char **args, char **env)
 {
