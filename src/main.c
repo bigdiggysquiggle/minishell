@@ -6,15 +6,14 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/10 19:55:25 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/11 19:51:26 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
 /* writing to standard input does print to the terminal */
-/* apparently I broke it somehow */
-/* echo 'test; echo test */
+
 extern char	**environ;
 
 typedef struct s_builtin	t_builtin;
@@ -45,6 +44,18 @@ void	free_split(char **cmdsplit)
 		free(cmdsplit[i++]);
 	free(cmdsplit);
 }
+
+/*
+void	print_args(char **args, char *msg)
+{
+	int		i;
+
+	i = 0;
+	printf("%s\n", msg);
+	while (args[i])
+		printf("%s\n", args[i++]);
+}
+*/
 
 char	**exec_cmds(char *cmd, char **env)
 {

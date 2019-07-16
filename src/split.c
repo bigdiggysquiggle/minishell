@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/10 19:54:52 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/11 18:54:47 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char		**strip_quotes(char **args)
 	{
 		if (args[i][0] == '\'' || args[i][0] == '\"')
 			{
-				tmp = ft_strndup(args[i] + 1, ft_strlen(args[i] - 2));
+				tmp = ft_strndup(args[i] + 1, ft_strlen(args[i]) - 2);
 				free(args[i]);
 				args[i] = tmp;
 			}
