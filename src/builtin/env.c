@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 17:02:21 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/16 21:16:37 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ char	**ft_unsetenv(char **args, char **env)
 		i++;
 	if (env[i])
 	{
-		e = (char **)malloc(sizeof(char *) * len - 1);
+		e = (char **)malloc(sizeof(char *) * len);
 		len = -1;
 		while (++len < i)
 			e[len] = env[len];
-		free(env[i]);
-		while (env[++len])
-			e[len - 1] = env[len];
-		e[len - 1] = NULL;
+		free(env[i++]);
+		while (env[i])
+			e[len++] = env[i++];
+		e[len] = NULL;
 		free(env);
 		env = e;
 	}
