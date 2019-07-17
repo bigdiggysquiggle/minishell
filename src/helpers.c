@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:08:43 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 13:19:45 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:03:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,25 @@ int		count_quotes(char *st)
 			return (0);
 	}
 	return (1);
+}
+
+char	**handle_expansion_tmp(char **exp, char *tmp, char **env, int mode)
+{
+	if (mode)
+	{
+		if (ft_strlen(tmp))
+				exp = array_join(exp, ft_strequ(tmp, "$0") ?
+					ft_strdup("-minishell") : exp_from_env(&tmp, 0, env));
+		free(tmp);
+	}
+	else
+	{
+		if (ft_strlen(tmp))
+			exp = array_join(exp, tmp);
+		else
+			free(tmp);
+	}
+	return (exp);
 }
 
 /*

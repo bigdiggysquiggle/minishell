@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 13:58:28 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:18:28 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	free_split(char **cmdsplit)
 	int		i;
 
 	i = 0;
-	while (cmdsplit[i])
-		free(cmdsplit[i++]);
-	free(cmdsplit);
+	if (cmdsplit)
+	{
+		while (cmdsplit[i])
+			free(cmdsplit[i++]);
+		free(cmdsplit);
+	}
 }
 
 char	**exec_cmds(char *cmd, char **env)

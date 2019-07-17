@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 13:51:54 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:15:27 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@
 
 char	*exp_from_env(char **arg, int i, char **env)
 {
-	size_t	len;
-
-	len = ft_strlen(arg[i] + 1);
-	while (*env && !ft_strnequ(arg[i] + 1, *env, len))
+	while (*env && !ft_strnequ(arg[i] + 1, *env, chr_index(*env, '=')))
 		env++;
 	if (*env)
 		return (ft_strdup(ft_strrchr(*env, '=') + 1));
@@ -73,15 +70,10 @@ char	*exp_dollars(char *arg, char **env)
 		i = 0;
 		while (arg[i] && arg[i] != '$')
 			i++;
-		tmp = ft_strndup(arg, i);
-		exp = ft_strlen(tmp) ? array_join(exp, tmp) : exp;
+		exp = handle_expansion_tmp(exp, ft_strndup(arg, i), env, 0);
 		arg += i;
-		i = 0;
-		i += arg[i] == '$' ? dollar_len(arg + i) : 0;
-		tmp = ft_strndup(arg, i);
-		if (ft_strlen(tmp))
-			exp = array_join(exp, ft_strequ(tmp, "$0") ?
-					ft_strdup("-minishell") : exp_from_env(&tmp, 0, env));
+		i = (arg[0] == '$') ? dollar_len(arg) : 0;
+		exp = handle_expansion_tmp(exp, ft_strndup(arg, i), env, 1);
 		arg += i;
 	}
 	tmp = contract_path(exp, "");

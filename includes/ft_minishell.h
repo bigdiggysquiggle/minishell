@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:21:40 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 13:21:42 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:04:37 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	**expand_dollar(char **args, char **env);
 ** int		is_arg_dollar(char *s);
 */
 char	*exp_from_env(char **arg, int i, char **env);
+char	**handle_expansion_tmp(char **exp, char *tmp, char **env, int mode);
 char	*contract_path(char **paths, char *d);
 int		count_quotes(char *st);
 char	*get_quotes(char *st);
