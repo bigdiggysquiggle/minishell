@@ -6,15 +6,15 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 13:48:08 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:58:28 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-/* writing to standard input does print to the terminal */
-
-extern char	**environ;
+/*
+** writing to standard input does print to the terminal
+*/
 
 t_builtin	g_builtin[] =
 {
@@ -102,10 +102,12 @@ int		shell(char **env)
 	return (0);
 }
 
-int		main(void)
+int		main(int argc, char **argv, char **envp)
 {
 	char	**env;
 
-	env = clone_env(environ);
+	env = clone_env(envp);
 	return (shell(env));
+	(void)argc;
+	(void)argv;
 }
