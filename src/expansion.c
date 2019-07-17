@@ -6,22 +6,23 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/09 18:59:53 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:51:54 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-/* $0 is name of shell or script */
-
-/*char	*exp_from_args(char **args, int i)
-{
-	int		j;
-
-	j = ft_atoi(args[i] + 1);
-	free(args[i]);
-	return (ft_strdup(args[j]));
-}*/
+/*
+**leaving this here in case dollar expansion needs to handle arguments too
+**char	*exp_from_args(char **args, int i)
+**{
+**	int		j;
+**
+**	j = ft_atoi(args[i] + 1);
+**	free(args[i]);
+**	return (ft_strdup(args[j]));
+**}
+*/
 
 char	*exp_from_env(char **arg, int i, char **env)
 {
@@ -48,6 +49,17 @@ char	*exp_path(char **args, int i, char **env)
 	return (contract_path(expand_dollar(exp, env), "/"));
 }
 
+int		dollar_len(char *arg)
+{
+	int		i;
+
+	i = 1;
+	while (arg[i] && ('_' == arg[i] ||
+				ft_isupper(arg[i]) || ft_isdigit(arg[i])))
+		i++;
+	return (i);
+}
+
 char	*exp_dollars(char *arg, char **env)
 {
 	char	**exp;
@@ -62,18 +74,10 @@ char	*exp_dollars(char *arg, char **env)
 		while (arg[i] && arg[i] != '$')
 			i++;
 		tmp = ft_strndup(arg, i);
-		if (ft_strlen(tmp))
-			exp = array_join(exp, tmp);
+		exp = ft_strlen(tmp) ? array_join(exp, tmp) : exp;
 		arg += i;
 		i = 0;
-		if (arg[i] == '$')
-		{
-			printf("expanding\n");
-			i++;
-			while (arg[i] && ('_' == arg[i] ||
-					ft_isupper(arg[i]) || ft_isdigit(arg[i])))
-				i++;
-		}
+		i += arg[i] == '$' ? dollar_len(arg + i) : 0;
 		tmp = ft_strndup(arg, i);
 		if (ft_strlen(tmp))
 			exp = array_join(exp, ft_strequ(tmp, "$0") ?
@@ -84,8 +88,6 @@ char	*exp_dollars(char *arg, char **env)
 	free_split(exp);
 	return (tmp);
 }
-
-	char	c;
 
 char	**expand_dollar(char **args, char **env)
 {

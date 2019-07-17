@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 19:28:43 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:00:49 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,8 @@ char	**update_pwd(char **env, char *path)
 	{
 		lstat(path, &d);
 		if (!access(path, F_OK))
-		{
-			if (!S_ISDIR(d.st_mode))
-				ft_printf("cd: not a directory: %s\n", path);
-			else
-				ft_printf("cd: permission denied: %s\n", path);
-		}
+			ft_printf(!S_ISDIR(d.st_mode) ? "cd: not a directory: %s\n" :
+					"cd: permission denied: %s\n", path);
 		else
 			ft_printf("cd: no such file or directory: %s\n", path);
 		return (env);

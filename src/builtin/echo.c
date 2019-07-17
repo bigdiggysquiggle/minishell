@@ -6,13 +6,11 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 23:13:35 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/05 02:00:58 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 12:59:26 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
-
-/* need to remove parentheseseses unless specifically escaped */
 
 char	**ft_echo(char **args, char **env)
 {

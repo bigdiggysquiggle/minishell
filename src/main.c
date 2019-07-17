@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/11 19:51:26 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:48:08 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 /* writing to standard input does print to the terminal */
 
 extern char	**environ;
-
-typedef struct s_builtin	t_builtin;
-
-struct	s_builtin
-{
-	char	*name;
-	char	**(*builtin)(char **, char **);
-};
 
 t_builtin	g_builtin[] =
 {
@@ -44,18 +36,6 @@ void	free_split(char **cmdsplit)
 		free(cmdsplit[i++]);
 	free(cmdsplit);
 }
-
-/*
-void	print_args(char **args, char *msg)
-{
-	int		i;
-
-	i = 0;
-	printf("%s\n", msg);
-	while (args[i])
-		printf("%s\n", args[i++]);
-}
-*/
 
 char	**exec_cmds(char *cmd, char **env)
 {
@@ -96,19 +76,23 @@ char	**clone_env(char **en)
 	return (env);
 }
 
+/*
+** consider new way of checking shell activity
+*/
+
 int		shell(char **env)
 {
 	char	*cmd;
 	char	**cmdsplit;
 	int		i;
 
-	while (1/*figure out way to know shell is alive*/)
+	while (1)
 	{
 		ft_putstr("8==D~ ");
 		get_next_line(0, &cmd);
 		while (!count_quotes(cmd))
 			cmd = get_quotes(cmd);
-		cmdsplit = cmd_split(cmd, ";"); //needs to preserve quotes here
+		cmdsplit = cmd_split(cmd, ";");
 		i = 0;
 		while (cmdsplit[i])
 			env = exec_cmds(cmdsplit[i++], env);

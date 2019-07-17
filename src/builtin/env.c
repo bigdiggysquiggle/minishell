@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/16 22:53:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 12:59:42 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		check_env(char *env, char *var)
 {
 	int		ret;
 	char	**s;
+
 	s = ft_strsplit(env, '=');
 	ret = ft_strcmp(*s, var);
 	free_split(s);

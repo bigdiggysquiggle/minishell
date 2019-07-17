@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/16 20:45:32 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:50:20 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute(char *cmd, char **args, char **env)
 
 	pid = fork();
 	if (pid == 0 && execve(cmd, args, env) == -1)
-		ft_printf("permission denied\n"); //might need program name on there
+		ft_printf("%s: permission denied\n", args[0]);
 	else if (pid < 0)
 		ft_printf("%s: failed to fork\n", args[0]);
 	else
@@ -62,7 +62,7 @@ int		execute_localfile(char **args, char **env)
 	free_split(path);
 	return (0);
 }
-/* logic can be redone, also needs to work on local files */
+
 int		execute_nonbuiltin(char **args, char **env)
 {
 	int		i;

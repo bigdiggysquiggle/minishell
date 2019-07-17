@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:08:43 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/10 18:57:37 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:19:45 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ int		count_quotes(char *st)
 	return (1);
 }
 
-/*int		is_arg_dollar(char *s)
+/*
+** not sure if needed. not sure if dollar expansion is supposed to
+** also do argument numbers in minishell
+*/
+
+int		is_arg_dollar(char *s)
 {
 	int		i;
 
@@ -57,4 +62,4 @@ int		count_quotes(char *st)
 	while (s[i] && ft_isdigit(s[i]))
 		i++;
 	return (s[i] ? 0 : 1);
-}*/
+}

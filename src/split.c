@@ -6,16 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/11 18:54:47 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:49:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-/* quote getting is hateful. might be angry about s getting conditionally
- * clone, might be hateful about how d is getting handled */
-
-char	*contract_path(char **paths, char *d)
+char			*contract_path(char **paths, char *d)
 {
 	char	*path;
 	char	*tmp;
@@ -84,7 +81,7 @@ char			**cmd_split(char const *s, char *c)
 	return (n);
 }
 
-char		**strip_quotes(char **args)
+char			**strip_quotes(char **args)
 {
 	int		i;
 	char	*tmp;
@@ -93,11 +90,11 @@ char		**strip_quotes(char **args)
 	while (args[++i])
 	{
 		if (args[i][0] == '\'' || args[i][0] == '\"')
-			{
-				tmp = ft_strndup(args[i] + 1, ft_strlen(args[i]) - 2);
-				free(args[i]);
-				args[i] = tmp;
-			}
+		{
+			tmp = ft_strndup(args[i] + 1, ft_strlen(args[i]) - 2);
+			free(args[i]);
+			args[i] = tmp;
+		}
 	}
 	return (args);
 }
