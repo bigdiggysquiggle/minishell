@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/18 17:53:55 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/18 22:48:27 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,18 @@ int		shell(char **env)
 
 	while (1)
 	{
+		cmd = NULL;
+		cmdsplit = NULL;
 		ft_putstr("8==D~ ");
 		get_next_line(0, &cmd);
-		while (!count_quotes(cmd))
+		while (cmd && !count_quotes(cmd))
 			cmd = get_quotes(cmd);
-		cmdsplit = cmd_split(cmd, ";");
+		cmdsplit = cmd ? cmd_split(cmd, ";") : NULL;
 		i = 0;
-		while (cmdsplit[i])
+		while (cmdsplit && cmdsplit[i])
 			env = exec_cmds(cmdsplit[i++], env);
-		free(cmd);
+		if (cmd)
+			free(cmd);
 		free_split(cmdsplit);
 	}
 	return (0);
