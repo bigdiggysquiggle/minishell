@@ -65,10 +65,8 @@ int		execute_localfile(char **args, char **env)
 
 int		execute_nonbuiltin(char **args, char **env)
 {
-	int		i;
 	char	*cmd;
 
-	i = 0;
 	if (args[0][0] != '.')
 		return (execute_localfile(args, env));
 	else
