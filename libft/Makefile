@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/22 14:53:52 by dromansk          #+#    #+#              #
-#    Updated: 2019/03/31 00:41:50 by dromansk         ###   ########.fr        #
+#    Updated: 2019/07/19 15:25:55 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ re: fclean all
 reclean: re
 	make clean
 
-sreclean:
+sreclean: fclean
 	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c -fsanitize=address -g
 	ar rcs $(NAME) $(O)
 	ranlib $(NAME)
