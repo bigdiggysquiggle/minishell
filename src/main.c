@@ -24,6 +24,7 @@ t_builtin	g_builtin[] =
 	{"setenv", &ft_setenv},
 	{"unsetenv", &ft_unsetenv},
 	{"cd", &ft_cd},
+	{"squirrel", &squirrel},
 	{NULL, NULL}
 };
 

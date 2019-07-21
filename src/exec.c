@@ -13,6 +13,24 @@
 #include "ft_minishell.h"
 #include "sys/wait.h"
 
+char	**squirrel(char **args, char **env)
+{
+	if (args)
+	{
+		ft_printf("          )\" .\n");
+		ft_printf("         /    \\      (\\-./\n");
+		ft_printf("        /     |    _/ o. \\\n");
+		ft_printf("       |      | .-\"      y)-\n");
+		ft_printf("       |      |/       _/ \\\n");
+		ft_printf("       \\     /j   _\".\\(@)\n");
+		ft_printf("        \\   ( |    `.''  )\n");
+		ft_printf("         \\  _`-     |   /\n");
+		ft_printf("           \"  `-._  <_ (\n");
+		ft_printf("                  `-.,),)\n");
+	}
+	return (env);
+}
+
 void	execute(char *cmd, char **args, char **env)
 {
 	pid_t	pid;

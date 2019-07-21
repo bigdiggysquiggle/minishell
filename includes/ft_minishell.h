@@ -35,6 +35,7 @@ char	**ft_env(char **args, char **env);
 char	**ft_setenv(char **args, char **env);
 char	**ft_unsetenv(char **args, char **env);
 char	**ft_cd(char **args, char **env);
+char	**squirrel(char **args, char **env);
 int		execute_nonbuiltin(char **args, char **env);
 
 void	sig_process(int sig);
