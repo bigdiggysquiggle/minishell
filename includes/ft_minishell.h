@@ -29,7 +29,6 @@ char	*get_quotes(char *st);
 char	**strip_quotes(char **args);
 
 char	**ft_echo(char **args, char **env);
-char	**ft_exit(char **args, char **env);
 char	**ft_env(char **args, char **env);
 char	**ft_setenv(char **args, char **env);
 char	**ft_unsetenv(char **args, char **env);

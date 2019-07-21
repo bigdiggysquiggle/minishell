@@ -26,7 +26,7 @@ L = -L ./ -lft
 all: $(NAME)
 
 $(NAME):
-	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c
+	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c -g
 	ar rcs $(NAME) $(O)
 	ranlib $(NAME)
 

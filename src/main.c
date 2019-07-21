@@ -19,7 +19,7 @@
 t_builtin	g_builtin[] =
 {
 	{"echo", &ft_echo},
-	{"exit", &ft_exit},
+	{"exit", NULL},
 	{"env", &ft_env},
 	{"setenv", &ft_setenv},
 	{"unsetenv", &ft_unsetenv},
@@ -40,7 +40,7 @@ void	free_split(char **cmdsplit)
 	}
 }
 
-char	**exec_cmds(char *cmd, char **env)
+char	**exec_cmds(char *cmd, char **env, int *exit)
 {
 	char	**cmds;
 	int		i;
@@ -52,7 +52,12 @@ char	**exec_cmds(char *cmd, char **env)
 	while (g_builtin[i].name && !ft_strequ(g_builtin[i].name, cmds[0]))
 		i++;
 	if (g_builtin[i].name)
-		env = g_builtin[i].builtin(cmds, env);
+	{
+		if (ft_strequ(g_builtin[i].name, "exit"))
+			*exit = 1;
+		else
+			env = g_builtin[i].builtin(cmds, env);
+	}
 	else
 		execute_nonbuiltin(cmds, env);
 	free_split(cmds);
@@ -79,17 +84,15 @@ char	**clone_env(char **en)
 	return (env);
 }
 
-/*
-** consider new way of checking shell activity
-*/
-
 int		shell(char **env)
 {
 	char	*cmd;
 	char	**cmdsplit;
 	int		i;
+	int		status;
 
-	while (1)
+	status = 0;
+	while (!status)
 	{
 		cmd = NULL;
 		cmdsplit = NULL;
@@ -100,12 +103,13 @@ int		shell(char **env)
 		cmdsplit = cmd ? cmd_split(cmd, ";") : NULL;
 		i = 0;
 		while (cmdsplit && cmdsplit[i])
-			env = exec_cmds(cmdsplit[i++], env);
+			env = exec_cmds(cmdsplit[i++], env, &status);
 		if (cmd)
 			free(cmd);
 		free_split(cmdsplit);
 	}
-	return (0);
+	free_split(env);
+	return (status);
 }
 
 int		main(int argc, char **argv, char **envp)

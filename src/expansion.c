@@ -36,6 +36,7 @@ char	*exp_from_env(char **arg, int i, char **env)
 char	*exp_path(char **args, int i, char **env)
 {
 	char	**exp;
+	char	*path;
 
 	exp = ft_strsplit(args[i], '/');
 	if (ft_strequ(exp[0], "~"))
@@ -43,7 +44,11 @@ char	*exp_path(char **args, int i, char **env)
 		free(exp[0]);
 		exp[0] = ft_strdup("$HOME");
 	}
-	return (contract_path(expand_dollar(exp, env), "/"));
+	path = contract_path(expand_dollar(exp, env), "/");
+	if (ft_strequ(exp[0], "$HOME"))
+		path = swap_n_free(ft_strjoin("/", path), &path);
+	free_split(exp);
+	return (path);
 }
 
 int		dollar_len(char *arg)
