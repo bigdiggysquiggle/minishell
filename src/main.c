@@ -96,7 +96,8 @@ int		shell(char **env)
 	{
 		cmd = NULL;
 		cmdsplit = NULL;
-		ft_putstr("8==D~ ");
+		ft_putstr(PROMPT);
+		signal(SIGINT, sig_main);
 		get_next_line(0, &cmd);
 		while (cmd && !count_quotes(cmd))
 			cmd = get_quotes(cmd);

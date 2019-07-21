@@ -18,6 +18,7 @@ void	execute(char *cmd, char **args, char **env)
 	pid_t	pid;
 
 	pid = fork();
+	signal(SIGINT, sig_process);
 	if (pid == 0 && execve(cmd, args, env) == -1)
 		ft_printf("%s: permission denied\n", args[0]);
 	else if (pid < 0)
@@ -37,7 +38,7 @@ char	*make_path(char *cmd, char *path)
 	return (s);
 }
 
-int		execute_localfile(char **args, char **env)
+int		execute_builtin(char **args, char **env)
 {
 	int		i;
 	char	**path;
@@ -68,7 +69,7 @@ int		execute_nonbuiltin(char **args, char **env)
 	char	*cmd;
 
 	if (args[0][0] != '.')
-		return (execute_localfile(args, env));
+		return (execute_builtin(args, env));
 	else
 	{
 		cmd = ft_strdup(args[0]);

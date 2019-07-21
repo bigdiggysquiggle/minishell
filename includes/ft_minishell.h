@@ -13,6 +13,8 @@
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 # include "libft.h"
+# include "signal.h"
+# define PROMPT "8==D~ "
 
 char	**cmd_split(char const *s, char *c);
 void	free_split(char **cmdsplit);
@@ -34,6 +36,9 @@ char	**ft_setenv(char **args, char **env);
 char	**ft_unsetenv(char **args, char **env);
 char	**ft_cd(char **args, char **env);
 int		execute_nonbuiltin(char **args, char **env);
+
+void	sig_process(int sig);
+void	sig_main(int sig);
 
 typedef struct s_builtin	t_builtin;
 
