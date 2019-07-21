@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 16:15:27 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/20 20:05:48 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ char	*exp_path(char **args, int i, char **env)
 		exp[0] = ft_strdup("$HOME");
 	}
 	path = contract_path(expand_dollar(exp, env), "/");
-	if (ft_strequ(exp[0], "$HOME"))
-		path = swap_n_free(ft_strjoin("/", path), &path);
 	free_split(exp);
 	return (path);
 }

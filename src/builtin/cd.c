@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 16:25:24 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/20 20:13:46 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,28 +98,16 @@ char	*get_home(char *home, char **env)
 
 char	**ft_cd(char **args, char **env)
 {
-	char	**exp;
 	char	*path;
 
-	exp = NULL;
 	path = NULL;
 	if (args[1] && args[2])
 		return (cd_swap(args, env));
 	else
 	{
-		if (args[1])
-			exp = ft_strsplit(args[1], '/');
-		if (!exp || !*exp)
-			path = args[1] ? ft_strdup(args[1]) : get_home("$HOME", env);
-		else
-		{
-			exp = expand_dollar(exp, env);
-			path = contract_path(exp, "/");
-		}
-		free_split(exp);
+		path = args[1] ? ft_strdup(args[1]) : get_home("$HOME", env);
 		env = update_pwd(env, path);
-		if (path)
-			free(path);
+		free(path);
 	}
 	return (env);
 }
