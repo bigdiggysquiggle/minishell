@@ -55,7 +55,7 @@ int		dollar_len(char *arg)
 
 	i = 1;
 	while (arg[i] && ('_' == arg[i] ||
-				ft_isupper(arg[i]) || ft_isdigit(arg[i])))
+				ft_isalpha(arg[i]) || ft_isdigit(arg[i])))
 		i++;
 	return (i);
 }
