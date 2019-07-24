@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:08:43 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 16:03:32 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/23 22:12:42 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**handle_expansion_tmp(char **exp, char *tmp, char **env, int mode)
 	if (mode)
 	{
 		if (ft_strlen(tmp))
-				exp = array_join(exp, ft_strequ(tmp, "$0") ?
+			exp = array_join(exp, ft_strequ(tmp, "$0") ?
 					ft_strdup("-minishell") : exp_from_env(&tmp, 0, env));
 		free(tmp);
 	}
