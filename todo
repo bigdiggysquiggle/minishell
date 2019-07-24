@@ -1,0 +1,11 @@
+==61477== 11 bytes in 1 blocks are definitely lost in loss record 1 of 44
+==61477==    at 0x1000B9226: malloc (in /nfs/2018/d/dromansk/.brew/Cellar/valgrind/HEAD-6bcb493/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==61477==    by 0x100004E3C: ft_strnew (ft_strnew.c:19)
+==61477==    by 0x100004D60: ft_strndup (ft_strndup.c:22)
+==61477==    by 0x100002B04: cmd_split (split.c:75)
+==61477==    by 0x100002516: exec_cmds (main.c:49)
+==61477==    by 0x100002868: shell (main.c:108)
+==61477==    by 0x1000028DF: main (main.c:122)
+
+custom gnl to get tab completion
+-takes making sure the tab doesn't show in the terminal
