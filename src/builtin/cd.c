@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/24 16:42:14 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:11:14 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**cd_swap(char **args, char **env)
 	exp = ft_strsplit(path, '/');
 	free(path);
 	i = 0;
-	while (!ft_strequ(args[1], exp[i]))
+	while (exp[i] && !ft_strequ(args[1], exp[i]))
 		i++;
 	if (exp[i])
 	{
@@ -84,6 +84,8 @@ char	**cd_swap(char **args, char **env)
 			ft_printf("%s\n", path);
 		free(path);
 	}
+	else
+		ft_printf("cd: string not in pwd: %s\n", args[1]);
 	free_split(exp);
 	return (env);
 }
