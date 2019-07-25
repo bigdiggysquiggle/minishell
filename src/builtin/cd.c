@@ -6,17 +6,13 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/20 20:13:46 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/24 16:42:14 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 #include "sys/param.h"
 #include "sys/stat.h"
-
-/*
-** need to figure out symlink behaviour
-*/
 
 char	**update_oldpwd(char **env)
 {
@@ -84,7 +80,8 @@ char	**cd_swap(char **args, char **env)
 		path = contract_path(exp, "/");
 		path = swap_n_free(ft_strjoin("/", path), &path);
 		env = update_pwd(env, path);
-		ft_printf("%s\n", path);
+		if (cd_check(path, env))
+			ft_printf("%s\n", path);
 		free(path);
 	}
 	free_split(exp);

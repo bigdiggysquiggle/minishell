@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:08:43 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/23 22:12:42 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/24 16:31:30 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,35 @@ char	**handle_expansion_tmp(char **exp, char *tmp, char **env, int mode)
 	return (exp);
 }
 
-/*
-** not sure if needed. not sure if dollar expansion is supposed to
-** also do argument numbers in minishell
-*/
-
-int		is_arg_dollar(char *s)
+int		cd_check(char *path, char **env)
 {
+	char	**split;
 	int		i;
 
 	i = 0;
-	while (s[i] && ft_isdigit(s[i]))
+	while (!ft_strnequ("PWD", env[i], 3))
 		i++;
-	return (s[i] ? 0 : 1);
+	if (env[i])
+	{
+		split = ft_strsplit(env[i], '=');
+		i = ft_strequ(path, split[1]);
+		free_split(split);
+		return (i);
+	}
+	return (0);
 }
+
+/*
+** not sure if needed. not sure if dollar expansion is supposed to
+** also do argument numbers in minishell
+**
+**int		is_arg_dollar(char *s)
+**{
+**	int		i;
+**
+**	i = 0;
+**	while (s[i] && ft_isdigit(s[i]))
+**		i++;
+**	return (s[i] ? 0 : 1);
+**}
+*/

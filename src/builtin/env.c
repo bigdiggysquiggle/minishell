@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 17:29:25 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 12:59:42 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/24 16:17:32 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*make_env(char *s1, char *s2)
 	char	*t;
 
 	s = ft_strjoin(s1, "=");
-	t = ft_strjoin(s, s2);
+	t = ft_strjoin(s, s2 ? s2 : "");
 	free(s);
 	return (t);
 }

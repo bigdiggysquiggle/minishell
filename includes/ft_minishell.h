@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 13:21:40 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 16:04:37 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/24 16:38:05 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_MINISHELL_H
 # include "libft.h"
 # include "signal.h"
-# define PROMPT "8==D~ "
+# define PROMPT "()==[:::::::::::::> "
 
 char	**cmd_split(char const *s, char *c);
 void	free_split(char **cmdsplit);
@@ -29,6 +29,7 @@ char	*contract_path(char **paths, char *d);
 int		count_quotes(char *st);
 char	*get_quotes(char *st);
 char	**strip_quotes(char **args);
+int		cd_check(char *path, char **env);
 
 char	**ft_echo(char **args, char **env);
 char	**ft_env(char **args, char **env);
