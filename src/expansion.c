@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/20 20:05:48 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/25 20:33:46 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,11 @@ char	**expand_dollar(char **args, char **env)
 	while (args[++i])
 	{
 		if (args[i][0] == '~')
-			args[i] = exp_path(args, i, env);
+		{
+			t = exp_path(args, i, env);
+			free(args[i]);
+			args[i] = t;
+		}
 		if (ft_strchr(args[i], '$'))
 		{
 			t = exp_dollars(args[i], env);
