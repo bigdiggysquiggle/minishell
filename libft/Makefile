@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/22 14:53:52 by dromansk          #+#    #+#              #
-#    Updated: 2019/07/19 15:25:55 by dromansk         ###   ########.fr        #
+#    Updated: 2019/07/25 19:28:56 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ L = -L ./ -lft
 all: $(NAME)
 
 $(NAME):
-	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c -g
+	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c
 	ar rcs $(NAME) $(O)
 	ranlib $(NAME)
 
@@ -42,7 +42,7 @@ reclean: re
 	make clean
 
 sreclean: fclean
-	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c -fsanitize=address -g
+	gcc -Wall -Werror -Wextra $(I) $(SRCS) -c -g
 	ar rcs $(NAME) $(O)
 	ranlib $(NAME)
 	make clean
@@ -51,7 +51,7 @@ compile:
 	gcc main.c $(I) $(L) -o ftest
 
 scompile:
-	gcc main.c $(I) $(L) -o ftest -fsanitize=address -g
+	gcc main.c $(I) $(L) -o ftest -g
 
 test: sreclean
 	make scompile

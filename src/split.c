@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:55:16 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 13:49:32 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:31:38 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char			**cmd_split(char const *s, char *c)
 	int		len;
 	int		i;
 
-	if (s == NULL || !(n = (char **)malloc(sizeof(char *))))
+	if (s == NULL || c == NULL || !(n = (char **)malloc(sizeof(char *))))
 		return (NULL);
 	*n = NULL;
 	while (*s)

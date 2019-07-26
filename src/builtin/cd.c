@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/25 15:11:14 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/25 17:57:21 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	**cd_swap(char **args, char **env)
 	path = ft_strdup("$PWD");
 	path = swap_n_free(exp_from_env(&path, 0, env), &path);
 	exp = ft_strsplit(path, '/');
-	free(path);
 	i = 0;
 	while (exp[i] && !ft_strequ(args[1], exp[i]))
 		i++;
@@ -77,15 +76,15 @@ char	**cd_swap(char **args, char **env)
 	{
 		free(exp[i]);
 		exp[i] = ft_strdup(args[2]);
-		path = contract_path(exp, "/");
+		path = swap_n_free(contract_path(exp, "/"), &path);
 		path = swap_n_free(ft_strjoin("/", path), &path);
 		env = update_pwd(env, path);
 		if (cd_check(path, env))
 			ft_printf("%s\n", path);
-		free(path);
 	}
 	else
 		ft_printf("cd: string not in pwd: %s\n", args[1]);
+	free(path);
 	free_split(exp);
 	return (env);
 }
