@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/17 13:50:20 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/07/30 18:47:36 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		execute_nonbuiltin(char **args, char **env)
 {
 	char	*cmd;
 
-	if (args[0][0] != '.')
+	if (args[0][0] != '.' && args[0][0] != '/')
 		return (execute_builtin(args, env));
 	else
 	{

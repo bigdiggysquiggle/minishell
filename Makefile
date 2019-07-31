@@ -6,7 +6,7 @@
 #    By: dromansk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:18:25 by dromansk          #+#    #+#              #
-#    Updated: 2019/07/25 19:22:25 by dromansk         ###   ########.fr        #
+#    Updated: 2019/07/30 18:51:23 by dromansk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ clean:
 
 fclean: clean
 	make -C ./libft fclean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(NAME).dSYM
 
 re: fclean all
 
