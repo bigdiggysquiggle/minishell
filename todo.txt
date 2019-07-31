@@ -1,0 +1,1 @@
+issues running apps from /bin/ but when just given the command it's fine. also segfaults on whitespace only input
