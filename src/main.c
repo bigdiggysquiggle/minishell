@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 16:10:56 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/25 19:36:52 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/08/10 14:24:22 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**exec_cmds(char *cmd, char **env, int *exit)
 		else
 			env = g_builtin[i].builtin(cmds, env);
 	}
-	else
+	else if (cmds[0])
 		execute_nonbuiltin(cmds, env);
 	free_split(cmds);
 	return (env);
