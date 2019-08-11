@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 22:53:19 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/25 17:57:21 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:09:34 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,16 @@ char	**ft_cd(char **args, char **env)
 	char	*path;
 
 	path = NULL;
-	if (args[1] && args[2])
+	if (args[1] && args[2] && args[3])
+		ft_printf("error: cd: too many arguments\n");
+	else if (args[1] && args[2])
 		return (cd_swap(args, env));
 	else
 	{
-		path = args[1] ? ft_strdup(args[1]) : get_home("$HOME", env);
+		if (args[1] && args[1][0] == '-')
+			path = exp_dollars("$OLDPWD", env);
+		else
+			path = args[1] ? ft_strdup(args[1]) : get_home("$HOME", env);
 		env = update_pwd(env, path);
 		free(path);
 	}

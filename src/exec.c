@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/30 18:47:36 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:43:12 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	execute(char *cmd, char **args, char **env)
 	pid = fork();
 	signal(SIGINT, sig_process);
 	if (pid == 0 && execve(cmd, args, env) == -1)
+	{
 		ft_printf("%s: permission denied\n", args[0]);
+		exit(0);
+	}
 	else if (pid < 0)
 		ft_printf("%s: failed to fork\n", args[0]);
 	else
@@ -63,17 +66,17 @@ int		execute_builtin(char **args, char **env)
 	char	*cmd;
 
 	i = 0;
-	while (!ft_strnstr(env[i], "PATH=", 5))
+	while (env[i] && !ft_strnstr(env[i], "PATH=", 5))
 		i++;
-	path = ft_strsplit(env[i] + 5, ':');
+	path = env[i] ? ft_strsplit(env[i] + 5, ':') : 0;
 	i = 0;
-	cmd = make_path(args[0], path[i++]);
-	while (path[i] && access(cmd, F_OK) < 0)
+	cmd = path ? make_path(args[0], path[i++]) : ft_strdup(args[0]);
+	while (path && path[i] && access(cmd, F_OK) < 0)
 	{
 		free(cmd);
 		cmd = make_path(args[0], path[i++]);
 	}
-	if (path[i])
+	if (path && path[i])
 		execute(cmd, args, env);
 	else
 		ft_printf("%s: command not found\n", args[0]);

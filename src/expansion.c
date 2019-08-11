@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 14:15:28 by dromansk          #+#    #+#             */
-/*   Updated: 2019/07/25 20:33:46 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:21:26 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ char	*exp_dollars(char *arg, char **env)
 		exp = handle_expansion_tmp(exp, ft_strndup(arg, i), env, 0);
 		arg += i;
 		i = (arg[0] == '$') ? dollar_len(arg) : 0;
-		exp = handle_expansion_tmp(exp, ft_strndup(arg, i), env, 1);
+		exp = i > 1 ? handle_expansion_tmp(exp, ft_strndup(arg, i), env, 1) :
+			handle_expansion_tmp(exp, ft_strdup("$"), env, 0);
 		arg += i;
 	}
 	tmp = contract_path(exp, "");
