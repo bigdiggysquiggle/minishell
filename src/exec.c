@@ -6,7 +6,7 @@
 /*   By: dromansk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:19:30 by dromansk          #+#    #+#             */
-/*   Updated: 2019/08/10 19:43:12 by dromansk         ###   ########.fr       */
+/*   Updated: 2019/08/19 23:12:58 by dromansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		execute_builtin(char **args, char **env)
 		free(cmd);
 		cmd = make_path(args[0], path[i++]);
 	}
-	if (path && path[i])
+	if (cmd && !access(cmd, F_OK))
 		execute(cmd, args, env);
 	else
 		ft_printf("%s: command not found\n", args[0]);
